@@ -1,0 +1,47 @@
+.hlavicka {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: 900;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;  
+    
+    background-color: #999fa2;
+
+    
+}
+body {
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+.body {
+    background-color: #cbd1d3;
+    margin: 0px;
+    padding: 0px;
+    display: flex;}
+
+
+
+#logo{
+    height: 85px;
+}
+#prihlasovanie{
+    height: 45px; 
+}
+
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: relative;
+    bottom: 0px;
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;  
+    font-weight: 900;
+    
+    background-color: #999fa2;
+}
