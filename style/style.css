@@ -44,4 +44,185 @@ body {
     font-weight: 900;
     
     background-color: #999fa2;
+<<<<<<< HEAD
 }
+
+
+
+
+.zapasy {
+
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin-left: 15vw;
+    margin-top: 25px;
+    font-size: large;
+    margin-bottom: 25px;
+    
+}
+
+.zapasy_nazov_sutaze{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    
+}
+
+.zapasy_nazov_sutaze_img img{
+    height: 35px;
+    margin-left: 10px;
+}
+
+.zapasy_nazov_sutaze_sutaz{
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+
+.zapasy_nazov_sutaze_sutaz h3{
+    margin: 0px;
+}
+
+.zapasy_nazov_sutaze_sutaz h5{
+    margin: 0px;
+}
+
+
+
+.zapasy_hry_1 {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+
+.zapasy_hry_cas {
+    margin-left: 10px;
+    font-weight: 900;
+    
+}
+
+.zapasy_hry_analyza a{
+    text-decoration: none;
+    color: black;
+}
+.zapasy_hry_games{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+}
+
+.zapasy_hry_games p{
+    margin: -2px;
+}
+
+.zapasy_hry_logo{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.zapasy_hry_logo img {
+    height: 15px;
+}
+
+.zapasy_hry_live img{
+    height:25px;
+}
+
+.zapasy_hry_H2H{
+    margin-left: auto;
+    
+}
+
+.zapasy_hry_H2H a{
+    text-decoration: none;
+    color: black;
+}
+
+
+
+
+
+.h2h_cele {
+
+    display: flex;
+    font-size: 25px;
+    width: 525px;
+    
+
+}
+
+.telo_h2h_1{
+    background-color: #cbd1d3;
+}
+.h2h_cele table{
+    
+    margin: 5px;
+}
+.h2h_cele table th{
+
+    margin: 5px;
+    text-align: left;
+}
+
+.nazov {
+    padding-bottom: 15px;
+}
+
+.liga{
+    
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.vs {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.score {
+    padding-left: 70px;
+    font-weight: bold;
+}
+
+.status {
+    padding-left: 15px;
+}
+
+
+
+
+.preview_1_b{
+    background-color: #cbd1d3;
+}
+.preview_1_body{
+    display: flex;
+    margin-left: 30px;
+    margin-right: 30px;
+    text-align: justify;
+    flex-direction: column;
+}
+
+
+.preview_1_odds {
+    width: 100%;
+    table-layout:  fixed;
+    margin-top: 15px;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: #999fa2;
+    
+}
+.preview_1_odds th,
+.preview_1_odds td {
+    text-align: center;
+    
+}
+
+=======
+}
+>>>>>>> 3e4edbef28a941953dbe04ed22f23b9224926a14
