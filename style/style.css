@@ -11,6 +11,7 @@
 
     
 }
+
 body {
     padding: 0px;
     margin: 0px;
@@ -44,7 +45,7 @@ body {
     font-weight: 900;
     
     background-color: #999fa2;
-<<<<<<< HEAD
+
 }
 
 
@@ -211,10 +212,12 @@ body {
 .preview_1_odds {
     width: 100%;
     table-layout:  fixed;
-    margin-top: 15px;
+    margin-top: 5px;
     border: 1px solid black;
     border-radius: 15px;
     background-color: #999fa2;
+    margin-bottom: 15px;
+    
     
 }
 .preview_1_odds th,
@@ -223,6 +226,3 @@ body {
     
 }
 
-=======
-}
->>>>>>> 3e4edbef28a941953dbe04ed22f23b9224926a14

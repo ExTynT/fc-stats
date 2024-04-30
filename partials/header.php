@@ -1,3 +1,4 @@
+
 <?php
 echo '<div class="hlavicka">';
     echo '<div class="hlavicka-prvok-1">';
@@ -5,7 +6,8 @@ echo '<div class="hlavicka">';
     echo '</div>';
 
     echo '<div class="hlavicka-prvok-2">';
-        echo '<p>FIXTURES</p>';
+    echo '<p>FIXTURES</p>';
+
     echo '</div>';
 
     echo '<div class="hlavicka-prvok-3">';
