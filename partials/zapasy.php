@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Zapasy</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        .zapasy_nazov_sutaze{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    
+}
+    </style>
+    <script src='main.js'></script>
+</head>
 <?php
 
 $matches = array(
@@ -8,7 +27,8 @@ $matches = array(
         'logo1' => 'FCB_LOGO.png',
         'logo2' => 'PSG_LOGO.png',
         'h2h' => 'partials/H2H_1_P.php',
-        'preview' => 'partials/preview_1.php'
+        'preview' => 'partials/preview_1.php',
+        'competition' => 'Champions League'
     ),
     array(
         'time' => '20:30',
@@ -17,44 +37,49 @@ $matches = array(
         'logo1' => 'bvb.png',
         'logo2' => 'atletico.png',
         'h2h' => 'partials/H2H_2_p.php',
-        'preview' => 'partials/preview_2.php'
-    )
+        'preview' => 'partials/preview_2.php',
+        'competition' => 'Champions League'
+    ),
+    array(
+        'time'=> '21:00',
+        'team1'=> 'Atalanta',
+        'team2'=> 'Leverkusen',
+        'logo1'=> 'Atalanta.jpg',
+        'logo2'=> 'Leverkusen.jpg',
+        'h2h'=> 'partials/H2H_3_p.php',
+        'preview'=> 'partials/preview_3.php',
+        'competition' => 'Europa League'
+        ),
 );
 ?>
 
 <div class="zapasy">
-    <div class="zapasy_nazov_sutaze">
-        <div class="zapasy_nazov_sutaze_img">
-            <img src="img/liga_majstrov.png" alt="liga-majstrov">
-        </div>
-        <div class="zapasy_nazov_sutaze_sutaz">
-            <h3>Champions League</h3>
-            <h5>Europe</h5>
-        </div>
-    </div>
+    <?php
+    include '_inc/functions.php';
 
-    <?php foreach ($matches as $match): ?>
-    <div class="zapasy_hry_1">
-        <div class="zapasy_hry_cas">
-            <p><?php echo $match['time']; ?></p>
-        </div>
-        <div class="zapasy_hry_logo">
-            <img src="img/<?php echo $match['logo1']; ?>" alt="<?php echo $match['team1']; ?>">
-            <img src="img/<?php echo $match['logo2']; ?>" alt="<?php echo $match['team2']; ?>">
-        </div>
-        <div class="zapasy_hry_games">
-            <p><?php echo $match['team1']; ?></p>
-            <p><?php echo $match['team2']; ?></p>
-        </div>
-        <div class="zapasy_hry_H2H">
-            <p><a href="<?php echo $match['h2h']; ?>" onclick="window.open(this.href, '_blank', 'width=355px,height=210px'); return false;">H2H</a></p>
-        </div>
-        <div class="zapasy_hry_analyza">
-            <p><a href="<?php echo $match['preview']; ?>" onclick="window.open(this.href, '_blank', 'width=540px,height=800px'); return false;">Preview</a></p>
-        </div>
-        <div class="zapasy_hry_live">
-            <a href="https://www.premiersport.sk/program/" target="_blank"><img src="img/live.png" alt="live-match"></a>
-        </div>
-    </div>
-    <?php endforeach; ?>
+    // Zoskupenie podla sutaze
+    $groupedMatches = [];
+    foreach ($matches as $match) {
+        $groupedMatches[$match['competition']][] = $match;
+    }
+
+    // Zobrazenie zapasov
+    foreach ($groupedMatches as $competition => $matchesInCompetition) {
+        echo "<div class='zapasy_nazov_sutaze'>";
+        echo "<div class='zapasy_nazov_sutaze_img'>";
+        echo "<img src='img/" . strtolower(str_replace(' ', '-', $competition)) . ".png' alt='$competition'>";
+        echo "</div>";
+        echo "<div class='zapasy_nazov_sutaze_sutaz'>";
+        echo "<h3>$competition</h3>";
+        echo "<h5>Europe</h5>";
+        echo "</div>";
+        echo "</div>"; 
+
+        foreach ($matchesInCompetition as $match) {
+            outputMatchDetails($match); 
+        }
+    }
+    ?>
 </div>
+</body>
+</html>

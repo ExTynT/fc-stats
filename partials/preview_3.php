@@ -22,7 +22,7 @@ $conn = dbConnect();
 
 
 
-outputPreviewData($conn, 2);  
+outputPreviewData($conn, 3);  
 
 $conn->close(); 
 ?>

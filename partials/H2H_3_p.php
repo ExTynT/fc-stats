@@ -63,7 +63,7 @@
             include '../_inc/functions.php';
             $conn = dbConnect();
 
-            outputH2HData($conn, '2');  
+            outputH2HData($conn, '3');  
             $conn->close(); 
             ?>
         </table>
