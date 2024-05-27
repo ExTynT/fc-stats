@@ -9,45 +9,73 @@
     <script src="main.js"></script>
 
     <style>
-    body {
-        margin: 0;
-        padding: 0;
+        /* Štýly pre tabuľku */
+.h2h_cele {
+    width: 90%; 
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.h2h_cele table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; 
+}
+
+
+.nazov {
+    background-color: #007bff; 
+    color: white;
+    font-size: 1.2em;
+    padding: 15px;
+}
+
+
+tr {
+    background-color: #fff;
+    transition: background-color 0.3s ease; 
+}
+
+tr:nth-child(even) { 
+    background-color: #f2f2f2;
+}
+
+tr:hover { 
+    background-color: #e9ecef; 
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd; 
+    text-align: center;
+}
+
+
+.vs { 
+    font-weight: bold;
+}
+
+.vysledok {
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+    .h2h_cele table {
+        font-size: 0.9em; 
     }
 
-
-    body {
-        background-color: #cbd1d3;
+    .h2h_cele td {
+        padding: 8px; 
     }
-
 
     .nazov {
-        background-color: #999fa2; 
-        color: white; 
-        font-size: 20px;
-        font-weight: bold; 
         padding: 10px; 
-        text-align: center; 
     }
-
-
-    tr {
-        background-color: #ffffff; 
-    }
-
-    
-    td {
-        padding: 8px;
-        border: 1px solid #ccc; 
-        
-    }
-
-    
-    .vs {
-        font-weight: bold; 
-        text-align: center; 
-    }
-
-    .vysledok {font-weight: bold;}
+}
 </style>
 
 </head>
@@ -57,7 +85,7 @@
 <div class="h2h_cele">
         <table>
             <tr>
-                <th class="nazov" colspan="6">Last matches</th>
+                <th class="nazov" colspan="4">Last matches</th>
             </tr>
             <?php
             include '../_inc/functions.php';

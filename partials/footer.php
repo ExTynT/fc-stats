@@ -1,4 +1,5 @@
-<?php 
+<?php
+// footer html 
 echo '<div class="footer">';
     echo '<div class="autor">';
         echo '<p>Ivan Klopček</p>';
