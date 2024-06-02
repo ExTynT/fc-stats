@@ -1,11 +1,11 @@
 <?php
-// Spustenie session 
+
 session_start();
 
-// Načítanie potrebných súborov
-require_once '../_inc/functions.php';       // Súbor s pomocnými funkciami 
-require_once '../_inc/NewsRepository.php';  // Súbor s triedou NewsRepository pre prácu s novinkami a komentármi
-include_once 'Comment.php';                 // Súbor s triedou Comment pre prácu s komentármi
+
+require_once '../_inc/functions.php';       
+require_once '../_inc/NewsRepository.php';  
+include_once '../_inc/Comment.php';                 
 
 // Nastavenie hlavičky Content-Type na application/json
 header('Content-Type: application/json');
@@ -20,21 +20,21 @@ function sendErrorResponse($message) {
 
 // Kontrola existencie parametra id v GET požiadavke
 if (!isset($_GET['id'])) {
-    sendErrorResponse('Chýba ID komentára.'); // Ak chýba, odoslanie chybovej odpovede
+    sendErrorResponse('Chýba ID komentára.'); 
 }
 
 // Overenie a filtrovanie ID komentára z GET parametrov
 $commentId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if (!$commentId) {
-    sendErrorResponse('Neplatné ID komentára.'); // Ak je neplatné, odoslanie chybovej odpovede
+    sendErrorResponse('Neplatné ID komentára.'); 
 }
 
-// Nadviazanie spojenia s databázou
+
 $conn = dbConnect();
 
-// Kontrola úspešnosti nadviazania spojenia
+
 if (!$conn) {
-    sendErrorResponse('Zlyhalo pripojenie k databáze.'); // Ak nie je spojenie, odoslanie chybovej odpovede
+    sendErrorResponse('Zlyhalo pripojenie k databáze.'); 
 }
 
 // Vytvorenie inštancie triedy NewsRepository
@@ -43,21 +43,20 @@ $newsRepository = new NewsRepository($conn);
 // Získanie komentára podľa ID
 $comment = $newsRepository->getCommentById($commentId);
 
-// Kontrola, či komentár existuje
 if (!$comment) {
-    sendErrorResponse('Komentár nebol nájdený.'); // Ak neexistuje, odoslanie chybovej odpovede
+    sendErrorResponse('Komentár nebol nájdený.'); 
 }
 
 // Overenie, či je používateľ prihlásený a či má rolu admin
 if (!isset($_COOKIE['loggedIn']) || ($_COOKIE['user_role'] !== 'admin')) { 
-    sendErrorResponse('Nemáte oprávnenie na úpravu tohto komentára.'); // Ak nie je autorizovaný, odoslanie chybovej odpovede
+    sendErrorResponse('Nemáte oprávnenie na úpravu tohto komentára.'); 
 }
 
 // Ak všetky kontroly prešli úspešne, odoslanie údajov komentára vo formáte JSON
 echo json_encode([
-    'id' => $comment->id,       // ID komentára
-    'content' => $comment->content, // Obsah
+    'id' => $comment->id,       
+    'content' => $comment->content, 
 ]);
 
-// Uzatvorenie spojenia 
+
 $conn->close();

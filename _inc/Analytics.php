@@ -1,19 +1,19 @@
 <?php
-require_once 'functions.php';  // Načítava externý súbor s funkciami (dbConnect).
+require_once 'functions.php'; 
 
 class Analytics { 
-    private $conn; // Premenná na uloženie spojenia s databázou.
+    private $conn; 
 
     public function __construct($conn) {  
-        // Konštruktor triedy - inicializuje objekt.
-        $this->conn = dbConnect();  // Vytvára spojenie s databázou.
+       
+        $this->conn = dbConnect();  
     }
 
     // Získanie celkového počtu používateľov.
     public function getTotalUsers() {
         $sql = "SELECT COUNT(*) AS total FROM users";  
-        // SQL dopyt na získanie počtu riadkov v tabuľke "users".
-        $result = $this->conn->query($sql);  // Vykonanie dopytu.
+        
+        $result = $this->conn->query($sql);  
         return $result->fetch_assoc()['total'];  
         // Vrátenie výsledku ako číslo.
     }
@@ -43,16 +43,16 @@ class Analytics {
                 LIMIT ?";
         // Dopyt na získanie používateľov zoradených podľa počtu komentárov, ktoré pridali.
 
-        $stmt = $this->conn->prepare($sql);  // Príprava pripraveného vyhlásenia.
-        $stmt->bind_param("i", $limit);    // Zviazanie parametra $limit s dopytom.
-        $stmt->execute();                  // Vykonanie dopytu.
-        $result = $stmt->get_result();      // Získanie výsledkov.
+        $stmt = $this->conn->prepare($sql);  
+        $stmt->bind_param("i", $limit);   
+        $stmt->execute();                  
+        $result = $stmt->get_result();      
 
-        $activeUsers = [];                  // Pole pre uloženie výsledkov.
+        $activeUsers = [];                 
         while ($row = $result->fetch_assoc()) {
             $activeUsers[] = $row;         // Pridanie výsledku do poľa.
         }
-        return $activeUsers;                 // Vrátenie výsledkov.
+        return $activeUsers;                
     }
 
     // Získanie najkomentovanejších článkov.

@@ -27,7 +27,7 @@ body {
     width: 400px; 
 }
 
-/* Form Title */
+
 legend {
     font-size: 28px; 
     font-weight: 600; 
@@ -61,7 +61,7 @@ input[type="password"]:focus {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
 }
 
-/* Buttons */
+
 button[type="submit"] {
     background-color: #007bff; 
     color: white;

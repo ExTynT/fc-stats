@@ -29,8 +29,8 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" type="text/css" media="screen" href="../style/style.css">
 
     <style>.container {
-    /* ... (existujúce štýly) ... */
-    text-align: center; /* Zarovnanie obsahu na stred */
+    
+    text-align: center;
 }
 
 .container a {

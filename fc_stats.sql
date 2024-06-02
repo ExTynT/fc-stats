@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hostiteľ: 127.0.0.1
--- Čas generovania: Po 27.Máj 2024, 17:23
+-- Čas generovania: So 01.Jún 2024, 20:21
 -- Verzia serveru: 10.4.32-MariaDB
 -- Verzia PHP: 8.2.12
 
@@ -44,12 +44,27 @@ INSERT INTO `comments` (`id`, `news_id`, `user_id`, `content`, `created_at`) VAL
 (1071, 10, 6, 'da', '2024-05-26 18:31:57'),
 (1073, 16, 6, 'asd', '2024-05-26 18:32:26'),
 (1077, 13, 6, 'sad dsa dsa', '2024-05-27 13:53:24'),
-(1078, 15, 6, 'ads', '2024-05-27 14:01:41'),
-(1079, 13, 6, 'da das ddd', '2024-05-27 14:07:46'),
 (1081, 16, 6, 'dsa', '2024-05-27 14:25:02'),
 (1082, 10, 6, 's', '2024-05-27 14:26:25'),
-(1083, 13, 20, 'lol', '2024-05-27 15:02:47'),
-(1084, 16, 6, 'dsa', '2024-05-27 15:10:53');
+(1084, 16, 6, 'dsa', '2024-05-27 15:10:53'),
+(1088, 15, 6, 'ads', '2024-06-01 11:55:53'),
+(1089, 15, 6, 'ads', '2024-06-01 11:57:32'),
+(1091, 15, 6, 'asd', '2024-06-01 11:58:36'),
+(1095, 12, 6, 'sad', '2024-06-01 12:01:53'),
+(1097, 12, 6, 'sad', '2024-06-01 12:02:25'),
+(1098, 12, 6, 'sad', '2024-06-01 12:03:08'),
+(1102, 18, 6, 'ads', '2024-06-01 12:04:50'),
+(1104, 18, 6, 'ads', '2024-06-01 12:06:29'),
+(1106, 17, 6, 'ads', '2024-06-01 12:07:23'),
+(1107, 14, 6, 'das', '2024-06-01 12:07:26'),
+(1108, 14, 6, 'sad', '2024-06-01 12:12:53'),
+(1109, 14, 6, 'sad', '2024-06-01 12:13:49'),
+(1110, 11, 6, 'ads', '2024-06-01 12:13:52'),
+(1111, 11, 6, 'sad', '2024-06-01 12:14:46'),
+(1112, 18, 6, 'ads', '2024-06-01 12:14:53'),
+(1113, 13, 6, 'asd', '2024-06-01 12:18:14'),
+(1115, 13, 20, 'dfdf', '2024-06-01 12:18:54'),
+(1116, 11, 6, 'd', '2024-06-01 16:49:06');
 
 -- --------------------------------------------------------
 
@@ -126,6 +141,57 @@ INSERT INTO `h2h_3` (`H2H_3_ID`, `H2H_3_Datum`, `H2H_3_Liga`, `H2H_3_Zapas`, `H2
 -- --------------------------------------------------------
 
 --
+-- Štruktúra tabuľky pre tabuľku `h2h_table`
+--
+
+CREATE TABLE `h2h_table` (
+  `h2h_id` int(11) NOT NULL,
+  `match_id` int(11) NOT NULL,
+  `h2h_date` date DEFAULT NULL,
+  `h2h_league` varchar(255) DEFAULT NULL,
+  `h2h_match` varchar(255) DEFAULT NULL,
+  `h2h_result` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `h2h_table`
+--
+
+INSERT INTO `h2h_table` (`h2h_id`, `match_id`, `h2h_date`, `h2h_league`, `h2h_match`, `h2h_result`, `created_at`) VALUES
+(31, 30, '2024-02-21', '1. Liga', 'Barca vs Madrid', '4:0', '2024-06-01 17:49:06'),
+(32, 30, '2024-02-21', '1. Liga', 'Barca vs Madrid', '4:0', '2024-06-01 17:49:06'),
+(33, 31, '2024-05-18', 'CL', 'Real Madrid vs Borussia', '3:2', '2024-06-01 18:04:08'),
+(34, 31, '2024-05-18', 'CL', 'Real Madrid vs Borussia', '3:2', '2024-06-01 18:04:08');
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `matches_table`
+--
+
+CREATE TABLE `matches_table` (
+  `id` int(11) NOT NULL,
+  `time` time NOT NULL,
+  `team1` varchar(255) NOT NULL,
+  `team2` varchar(255) NOT NULL,
+  `logo1` varchar(255) DEFAULT NULL,
+  `logo2` varchar(255) DEFAULT NULL,
+  `competition` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `matches_table`
+--
+
+INSERT INTO `matches_table` (`id`, `time`, `team1`, `team2`, `logo1`, `logo2`, `competition`, `created_at`) VALUES
+(30, '20:30:00', 'Barca', 'Madrid', 'FCB_LOGO_1.png', 'bvb_1.png', 'LaLiga', '2024-06-01 17:49:06'),
+(31, '21:00:00', 'Dortmund', 'Real Madrid', 'bvb_2.png', 'real_madrid_1.png', 'CL', '2024-06-01 18:04:08');
+
+-- --------------------------------------------------------
+
+--
 -- Štruktúra tabuľky pre tabuľku `news`
 --
 
@@ -143,7 +209,7 @@ CREATE TABLE `news` (
 --
 
 INSERT INTO `news` (`id`, `title`, `content`, `category`, `image_path`, `created_at`) VALUES
-(10, ' Window Deadline Day Madness', 'Messi skoruje! lol', 'Champions League', '../img/messi.jpg', '2024-05-23 13:38:15'),
+(10, ' Window Deadline Day Madness', 'Messi skoruje! ', 'Champions League', '../img/messi.jpg', '2024-05-23 13:38:15'),
 (11, 'Surprise Upset in Europa League', 'Underdogs Sevilla stun Manchester United with a 2-1 win in the quarter-finals.', 'Europa League', '../img/sevilla.jpg', '2024-05-23 13:38:15'),
 (12, 'Mbappe Transfer Saga Continues', 'Kylian Mbappe\'s potential move to Real Madrid dominates transfer headlines.', 'Transfers', '../img/mpabbe.jpg', '2024-05-23 13:38:15'),
 (13, 'Ronaldo Breaks Another Record', 'Cristiano Ronaldo sets a new Champions League goalscoring record.', 'Champions League', '../img/ronaldo.jpg', '2024-05-23 13:38:15'),
@@ -152,6 +218,32 @@ INSERT INTO `news` (`id`, `title`, `content`, `category`, `image_path`, `created
 (16, 'Transfer Window Deadline Day Madness', 'khkhkj\r\n', 'Champions League', '../img/liverpool.jpg', '2024-05-23 13:38:15'),
 (17, 'Europa League Dark Horses Emerge', 'Several unexpected teams are making waves in the Europa League this season.', 'Europa League', '../img/europa.jpg', '2024-05-23 13:38:15'),
 (18, 'Transfer Window Deadline Day Madness', 'A roundup of the biggest deals and surprises on transfer deadline day.', 'Transfers', '../img/transfer.jpg', '2024-05-23 13:38:15');
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `previews_table`
+--
+
+CREATE TABLE `previews_table` (
+  `preview_id` int(11) NOT NULL,
+  `match_id` int(11) NOT NULL,
+  `preview_text` text DEFAULT NULL,
+  `preview_odds_win_1` decimal(5,2) DEFAULT NULL,
+  `preview_odds_draw` decimal(5,2) DEFAULT NULL,
+  `preview_odds_win_2` decimal(5,2) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `previews_table`
+--
+
+INSERT INTO `previews_table` (`preview_id`, `match_id`, `preview_text`, `preview_odds_win_1`, `preview_odds_draw`, `preview_odds_win_2`, `created_at`) VALUES
+(32, 30, 'Lol', 1.45, 4.52, 2.51, '2024-06-01 17:49:06'),
+(33, 30, 'Lol', 1.45, 4.52, 2.51, '2024-06-01 17:49:06'),
+(34, 31, 'Veľkolepá bitka medzi velikánmi futbalu!', 4.77, 4.07, 1.74, '2024-06-01 18:04:08'),
+(35, 31, 'Veľkolepá bitka medzi velikánmi futbalu!', 4.77, 4.07, 1.74, '2024-06-01 18:04:08');
 
 -- --------------------------------------------------------
 
@@ -282,10 +374,30 @@ ALTER TABLE `h2h_3`
   ADD PRIMARY KEY (`H2H_3_ID`);
 
 --
+-- Indexy pre tabuľku `h2h_table`
+--
+ALTER TABLE `h2h_table`
+  ADD PRIMARY KEY (`h2h_id`),
+  ADD KEY `match_id` (`match_id`);
+
+--
+-- Indexy pre tabuľku `matches_table`
+--
+ALTER TABLE `matches_table`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexy pre tabuľku `news`
 --
 ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexy pre tabuľku `previews_table`
+--
+ALTER TABLE `previews_table`
+  ADD PRIMARY KEY (`preview_id`),
+  ADD KEY `match_id` (`match_id`);
 
 --
 -- Indexy pre tabuľku `preview_1`
@@ -321,7 +433,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pre tabuľku `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1085;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1117;
 
 --
 -- AUTO_INCREMENT pre tabuľku `h2h_1`
@@ -342,10 +454,28 @@ ALTER TABLE `h2h_3`
   MODIFY `H2H_3_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT pre tabuľku `h2h_table`
+--
+ALTER TABLE `h2h_table`
+  MODIFY `h2h_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT pre tabuľku `matches_table`
+--
+ALTER TABLE `matches_table`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
 -- AUTO_INCREMENT pre tabuľku `news`
 --
 ALTER TABLE `news`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT pre tabuľku `previews_table`
+--
+ALTER TABLE `previews_table`
+  MODIFY `preview_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT pre tabuľku `preview_1`
@@ -381,6 +511,18 @@ ALTER TABLE `users`
 ALTER TABLE `comments`
   ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Obmedzenie pre tabuľku `h2h_table`
+--
+ALTER TABLE `h2h_table`
+  ADD CONSTRAINT `h2h_table_ibfk_1` FOREIGN KEY (`match_id`) REFERENCES `matches_table` (`id`) ON DELETE CASCADE;
+
+--
+-- Obmedzenie pre tabuľku `previews_table`
+--
+ALTER TABLE `previews_table`
+  ADD CONSTRAINT `previews_table_ibfk_1` FOREIGN KEY (`match_id`) REFERENCES `matches_table` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

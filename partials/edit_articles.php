@@ -1,11 +1,11 @@
 <?php
-session_start(); // Spustenie relácie
-require_once '../_inc/functions.php'; // Načítanie pomocných funkcií
-require_once '../_inc/NewsRepository.php'; // Načítanie triedy pre prácu s novinkami
+session_start(); 
+require_once '../_inc/functions.php'; 
+require_once '../_inc/NewsRepository.php'; 
 
 // Overenie prihlásenia a roly admin 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../index.php'); // Presmerovanie, ak nie je prihlásený
+    header('Location: ../index.php'); 
     exit;
 } else {
     
@@ -22,7 +22,7 @@ $selectedArticleId = null;
 
 // Spracovanie formulára na výber článku na úpravu
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['article_id'])) {
-    // Získanie ID vybraného článku z POST dát a overenie, či je to celé číslo
+    
     $selectedArticleId = filter_input(INPUT_POST, 'article_id', FILTER_VALIDATE_INT);
 
     // Ak je ID článku platné
@@ -31,10 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['article_id'])) {
         $article = $newsRepository->getArticleById($selectedArticleId);
 
         // Spracovanie formulára na úpravu článku
-        if (isset($_POST['title']) && isset($_POST['content'])) { // Kontrola, či boli odoslané údaje z formulára na úpravu
-            // Získanie a filtrovanie nového nadpisu a obsahu článku
-            $newTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING); // Odstránenie nebezpečných znakov
-            $newContent = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING); // Odstránenie nebezpečných znakov
+        if (isset($_POST['title']) && isset($_POST['content'])) { 
+           
+            $newTitle = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING); 
+            $newContent = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_STRING); 
 
             // Ak sú nový nadpis a obsah zadané
             if ($newTitle && $newContent) {
@@ -43,23 +43,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['article_id'])) {
 
                 // Kontrola, či bola aktualizácia úspešná
                 if ($updateResult) {
-                    // Ak áno, nastaví sa úspešná správa a znovu sa načíta upravený článok z databázy
                     $successMessage = "Článok bol úspešne upravený.";
                     $article = $newsRepository->getArticleById($selectedArticleId); 
                 } else {
-                    // Ak nie, nastaví sa chybová správa
+                  
                     $errorMessage = "Chyba pri úprave článku.";
                 }
             } else {
-                // Ak nie sú zadané všetky potrebné údaje, nastaví sa chybová správa
+                
                 $errorMessage = "Prosím, vyplňte všetky polia.";
             }
-        } // Koniec spracovania formulára na úpravu článku
+        } 
     } else {
-        // Ak ID článku nie je platné, nastaví sa chybová správa
+     
         $errorMessage = "Neplatné ID článku.";
     }
-} // Koniec spracovania formulára na výber článku
+}
 
 // Získanie zoznamu všetkých článkov pre výber v rozbaľovacom zozname
 $articles = $newsRepository->getAllArticles();

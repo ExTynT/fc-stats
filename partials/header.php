@@ -1,8 +1,8 @@
 <?php
 
-$loggedIn = isset($_COOKIE['loggedIn']); // Overenie či je používateľ prihlásený na základe cookie 'loggedIn'
-$userId = null; // Inicializácia premennej pre ID používateľa na null
-$userRole = null; // Inicializácia premennej pre rolu používateľa na null
+$loggedIn = isset($_COOKIE['loggedIn']); 
+$userId = null; 
+$userRole = null;
 
 // Ak je používateľ prihlásený, načítame ID a rolu z session
 if ($loggedIn) {

@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initial state: Login form is displayed, signup form is hidden
+    // Počiatočný status : Login forma je zobrazená, signup forma je skrytá
     signupForm.style.display = "none";
     loginForm.style.display = "block"; 
 
@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // Error Message Handling
+    // Erro handling
     if (errorMessageInput && errorMessageInput.value !== '') {
-        // Check if it's a signup error or login error
-        if (errorMessageInput.parentElement.id === 'signupForm') { // Check the parent form of the hidden input
+        // Kontrola, či je to  signup error alebo login error
+        if (errorMessageInput.parentElement.id === 'signupForm') { 
             showForm('signup');
             showErrorMessage(errorMessageInput.value, 'signupErrorMessage');
         } else if (errorMessageInput.parentElement.id === 'loginForm') {
@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
             showErrorMessage(errorMessageInput.value, 'loginError');
         }
     }
+
+    // Zobrazenie formulára
     function showForm(formId) {
         loginForm.style.display = formId === 'login' ? 'block' : 'none';
         signupForm.style.display = formId === 'signup' ? 'block' : 'none';
@@ -49,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleFormButton.textContent = formId === 'login' ? "Don't have an account? Sign up!" : 'Already have an account? Log in!';
     }
 
+
+    // Zobrazenie chybovej správy
     function showErrorMessage(message, elementId) {
         const errorMessageElement = document.getElementById(elementId);
         if (errorMessageElement) { 
@@ -57,41 +61,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-        // Get all edit buttons
+    // Získanie edit tlačidiel
     const editButtons = document.querySelectorAll('.edit-comment');
 
-    // Add event listeners to edit buttons
+    // Pridanie event listenerov na edit tlačítka
     editButtons.forEach(button => {
         button.addEventListener('click', () => {
             const commentId = button.dataset.commentId;
-            // TODO: Fetch the comment content using AJAX
-            // TODO: Populate a form with the comment content
-            // TODO: Submit the form to edit_comment.php
         });
     });
 
-    // Get all delete buttons
+    // Získanie delete tlačidiel
     const deleteButtons = document.querySelectorAll('.delete-comment');
 
-    // Add event listeners to delete buttons
+    // Pridanie event listenerov na delete tlačítka
     deleteButtons.forEach(button => {
         button.addEventListener('click', () => {
             const commentId = button.dataset.commentId;
             if (confirm('Are you sure you want to delete this comment?')) {
-                // TODO: Send an AJAX request to delete_comment.php with the commentId
             }
         });
 
         editButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const commentId = button.dataset.commentId;
-                const commentElement = button.closest('.comment'); // Find the parent comment element
+                const commentElement = button.closest('.comment'); // Nájdenie rodičovského comment elementu
         
-                // Fetch the comment content using AJAX
+                // Získanie komentáru cez AJAX
                 fetch(`/partials/get_comment.php?id=${commentId}`)
                     .then(response => response.json())
                     .then(data => {
-                        // Replace the comment content with the edit form
+                        // Nahradenie formulára obsahom komentára
                         commentElement.innerHTML = `
                             <form class="edit-comment-form" method="POST" action="/partials/edit_comment.php">
                                 <input type="hidden" name="comment_id" value="${commentId}">
@@ -101,10 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             </form>
                         `;
         
-                        // Add event listener to the cancel button
+                        // Event listener pre cancel tlačítko
                         const cancelButton = commentElement.querySelector('.cancel-edit');
                         cancelButton.addEventListener('click', () => {
-                            // Revert back to the original comment content
+                            // Vrátenie späť na pôvodný obsah komentára
                             commentElement.innerHTML = `
                                 <p><strong>${data.username}:</strong> ${data.content}</p>
                                 <p class="comment-timestamp">${data.created_at}</p>
@@ -118,12 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-            // Delete Comment Functionality
+
+
+    // Funckionalita delte tlačítka
     deleteButtons.forEach(button => {
         button.addEventListener('click', () => {
             const commentId = button.dataset.commentId;
             if (confirm('Are you sure you want to delete this comment?')) {
-                // Send an AJAX request to delete_comment.php
+                // AJAX požiadavka pre delete_comment.php
                 fetch('/partials/delete_comment.php', {
                     method: 'POST',
                     headers: {
@@ -134,25 +136,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Remove the comment element from the DOM
+                        // Odstránenie comment elementu z DOM
                         button.closest('.comment').remove();
                     } else {
-                        alert(data.error); // Display the error message
+                        alert(data.error); // Zobrazenie chybovej správy
                     }
                 });
             }
         });
     });
 
-    // Add Comment Functionality
+    // FUnckionalita pridávanie komentárov
     const commentForm = document.getElementById('commentForm');
     if (commentForm) {
         commentForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
 
             const formData = new FormData(commentForm);
 
-            // Send an AJAX request to add_comment.php
+            // Odoslanie AJAX požiadavky do add_comment.php
             fetch(commentForm.action, {
                 method: 'POST',
                 body: formData
@@ -160,16 +162,14 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Reload the comments section (or append the new comment dynamically)
-                    // You might need to adjust the selector based on your HTML structure
                     const commentsContainer = document.querySelector('.comments-container');
                     
-                    fetch(window.location.href) // Reload the current page
+                    fetch(window.location.href) // Reload stránky
                         .then(response => response.text())
                         .then(html => {
-                            // Find the new comments container in the reloaded HTML
+                            // Nájdenie nového comments kontajnera v  the znovunačítanom HTML
                             const newCommentsContainer = new DOMParser().parseFromString(html, 'text/html').querySelector('.comments-container');
-                            // Replace the old comments container with the new one
+                            // Náhrada starého za nový
                             commentsContainer.innerHTML = newCommentsContainer.innerHTML;
                         });
                 } else {
@@ -184,19 +184,19 @@ document.addEventListener('DOMContentLoaded', () => {
     editButtons.forEach(button => {
       button.addEventListener('click', (event) => {
         const commentId = button.dataset.commentId;
-        editComment(commentId, event); // Pass the event object
+        editComment(commentId, event); // Odoslanie event objektu
       });
     });
       
 
-// Delete Comment Functionality
+// Funkcionalita delete tlačítka
     const deleteButtons = document.querySelectorAll('.delete-comment');
     deleteButtons.forEach(button => {
     button.addEventListener('click', (event) => {
         const commentId = button.dataset.commentId;
-        const newsId = button.closest('.news-item-with-comments').querySelector('input[name="news_id"]').value; // Get news_id from the hidden input in the news article
+        const newsId = button.closest('.news-item-with-comments').querySelector('input[name="news_id"]').value; // Získanie news id
 
-        deleteComment(commentId, newsId, event.target); // Pass newsId to deleteComment
+        deleteComment(commentId, newsId, event.target); //newsid do deletecommentu
     });
     });
 
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
+// funckia na vymazanie komentára
 function deleteComment(commentId, event) {
     if (confirm('Are you sure you want to delete this comment?')) {
         const formData = new FormData(); // vytvorenie formulára
@@ -265,7 +265,7 @@ function deleteComment(commentId, event) {
                     throw new Error('Deletion cancelled.'); 
                 }
             } else {
-                // Ak potvrdenie nie je potrebné, vrátime dáta
+                // Ak potvrdenie nie je potrebné, vráti dáta
                 return data; 
             }
         })
@@ -295,7 +295,7 @@ function deleteComment(commentId, event) {
 
 
 
-
+// Funkcia na úpravu komentára
 async function editComment(commentId) {
     const commentElement = document.getElementById(`comment-${commentId}`);
 
@@ -338,7 +338,7 @@ async function editComment(commentId) {
     }
 }
 
-
+// Funkcia na submit editu komentára
 async function submitEditComment(commentId, formData, formContainer, originalData, event) {
     try {
         const response = await fetch(formContainer.querySelector('.edit-comment-form').action, {
@@ -402,6 +402,8 @@ async function submitEditComment(commentId, formData, formContainer, originalDat
       }
 }
 
+
+// Funckia na zrušenie editu komentára
 function cancelEditComment(commentId, originalData, formContainer) {
     location.reload()
   const newCommentElement = document.createElement('div');

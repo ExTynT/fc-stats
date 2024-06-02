@@ -38,16 +38,16 @@
     <div class="news-container">
     <?php
 
-// Načítanie potrebných súborov
+
 require_once '../_inc/functions.php';       
 require_once '../_inc/NewsRepository.php';  
 require_once '../_inc/template_functions.php'; 
-include_once 'Comment.php';                 // Súbor s triedou Comment pre prácu s komentármi
+include_once '../_inc/Comment.php';                
 
-// Nadviazanie spojenia s databázou
+
 $conn = dbConnect();
 
-// Vytvorenie inštancie triedy NewsRepository
+
 $newsRepository = new NewsRepository($conn);
 
 // Získanie vybranej kategórie z GET parametrov, ak nie je nastavená, predvolená hodnota je 'Champions League'
@@ -58,12 +58,12 @@ $newsItems = $newsRepository->getNewsByCategory($selectedCategory, 3);
 
 // Cyklus prechádzajúci cez získané články
 foreach ($newsItems as $newsItem) {
-    echo "<div class='news-item-with-comments'>"; // Obal pre článok a jeho komentáre
+    echo "<div class='news-item-with-comments'>"; 
 
-    // Vykreslenie článku pomocou funkcie renderNewsItem() (definovanej v template_functions.php)
+    // Vykreslenie článku
     renderNewsItem($newsItem);
 
-    // Príprava SQL dopytu na získanie komentárov k článku zoradených podľa dátumu vytvorenia (najnovšie prvé) s limitom 3
+    
     $sql = "SELECT c.*, u.username 
             FROM comments c
             JOIN users u ON c.user_id = u.id
@@ -71,17 +71,17 @@ foreach ($newsItems as $newsItem) {
             ORDER BY c.created_at DESC
             LIMIT 3";
 
-    // Príprava pripraveného výrazu (prepared statement) na bezpečné vykonanie dopytu
+    
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $newsItem->id); // Naviazanie ID článku ako parametra dopytu
+    $stmt->bind_param("i", $newsItem->id); 
     $stmt->execute();
-    $commentsResult = $stmt->get_result(); // Získanie výsledku dopytu s komentármi
+    $commentsResult = $stmt->get_result();
 
     // Získanie celkového počtu komentárov pre článok
     $totalComments = $commentsResult->num_rows;
-    $displayedComments = 0; // Počítadlo zobrazených komentárov
+    $displayedComments = 0; 
 
-    // Kontajner pre komentáre
+  
     echo "<div class='comments-container'>";
 
     // Cyklus prechádzajúci cez výsledky komentárov
@@ -90,10 +90,10 @@ foreach ($newsItems as $newsItem) {
         // Vytvorenie objektu Comment z údajov komentára
         $comment = new Comment($commentRow);
 
-        // Vykreslenie komentára pomocou šablóny '../partials/comment_template.php'
+        // Vykreslenie komentára pomocou šablóny 
         include '../partials/comment_template.php';
 
-        // Zvýšenie počítadla zobrazených komentárov
+        
         $displayedComments++;
     }
 
@@ -105,21 +105,21 @@ foreach ($newsItems as $newsItem) {
         echo "<p><a href='view_all_comments.php?news_id={$newsItem->id}'>View all $totalComments comments</a></p>"; 
     }
 
-    echo "</div>"; // Koniec kontajnera pre komentáre
+    echo "</div>";
 
     // Zobrazenie formulára na pridanie komentára, ak je používateľ prihlásený a počet zobrazených komentárov je menej ako 3
     if (isset($_COOKIE['loggedIn']) && $displayedComments < 3) {
-        include '../partials/comment_form.php'; // Načítanie šablóny formulára
+        include '../partials/comment_form.php'; 
     } elseif (isset($_COOKIE['loggedIn'])) {
-        echo "<p>Dosiahnutý limit komentárov!</p>"; // Správa o dosiahnutí limitu komentárov
+        echo "<p>Dosiahnutý limit komentárov!</p>"; 
     } else {
-        echo "<p>Please <a href='/partials/signup_page.php'>log in or sign up</a> to comment.</p>"; // Výzva na prihlásenie pre neprihlásených používateľov
+        echo "<p>Please <a href='/partials/signup_page.php'>log in or sign up</a> to comment.</p>"; 
     }
 
-    echo "</div>"; // Koniec obalu pre článok a komentáre
+    echo "</div>"; 
 }
 
-// Uzatvorenie spojenia
+
 $conn->close(); 
 ?>
 
