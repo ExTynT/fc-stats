@@ -88,6 +88,7 @@ class UserCreatedZapas extends Zapas {
         $logoPath1 = !empty($this->logo1) ? "img/{$this->logo1}" : 'img/default.png';
         $logoPath2 = !empty($this->logo2) ? "img/{$this->logo2}" : 'img/default.png';
     
+
         // Výpis celého HTML naraz ,  heredoc 
         echo <<<HTML
         <div class='match-container'>
@@ -112,6 +113,7 @@ class UserCreatedZapas extends Zapas {
                     $previewDisplay
                 </div>
             </div>
+            
         </div>
     HTML;
     

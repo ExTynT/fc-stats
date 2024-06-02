@@ -177,6 +177,7 @@ foreach ($analytics->getMostCommentedArticles() as $article) {
 
         <a href="edit_articles.php">Upraviť články</a> 
         <a href="../index.php">Späť na hlavnú stránku</a>
+        <a href ="delete_user_match.php">Vymazanie článku</a>
         <a href="logout.php">Odhlásiť sa</a>
     </div>
 </body>

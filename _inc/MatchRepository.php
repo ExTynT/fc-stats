@@ -142,5 +142,51 @@ class MatchRepository {
     }
 
 
+    // Funkcia na odstránenie user zápasu
+    public function deleteMatch($matchId) {
+        // Začneme transakciu, aby sme zabezpečili, že všetky operácie budú vykonané spoločne
+        $this->conn->begin_transaction();
+
+        try {
+            // 1. Zmazanie H2H údajov
+            $sqlH2H = "DELETE FROM h2h_table WHERE match_id = ?";
+            $stmtH2H = $this->conn->prepare($sqlH2H);
+            $stmtH2H->bind_param("i", $matchId);
+            $stmtH2H->execute();
+
+            // 2. Zmazanie preview údajov
+            $sqlPreview = "DELETE FROM previews_table WHERE match_id = ?";
+            $stmtPreview = $this->conn->prepare($sqlPreview);
+            $stmtPreview->bind_param("i", $matchId);
+            $stmtPreview->execute();
+
+            // 3. Zmazanie zápasu
+            $sqlMatch = "DELETE FROM matches_table WHERE id = ?";
+            $stmtMatch = $this->conn->prepare($sqlMatch);
+            $stmtMatch->bind_param("i", $matchId);
+            $stmtMatch->execute();
+
+            // Potvrdenie transakcie, ak všetky dopyty boli úspešné
+            $this->conn->commit();
+
+            return true; 
+        } catch (Exception $e) {
+            // Vrátenie zmien v prípade chyby
+            $this->conn->rollback();
+            throw new Exception("Chyba pri mazání zápasu: " . $e->getMessage());
+        }
+    }
+
+    // Funkcia na získanie všetkých zápasov od používateľov
+    public function getAllUserCreatedMatches() {
+        $sql = "SELECT id, time, team1, team2, competition FROM matches_table"; 
+        $result = $this->conn->query($sql);
+
+        $matches = [];
+        while ($row = $result->fetch_assoc()) {
+            $matches[] = $row; 
+        }
+        return $matches;
+    }
 
 }
